@@ -2,22 +2,32 @@
 import { injectable, inject } from "inversify";
 import type { Request, Response } from "express";
 import { AuthService } from "../services/implementations/auth.service.js";
+import type { IAuthService } from "../services/interfaces/auth.service.interface.js";
+import { BaseController } from "./base.controller.js";
+import { StatusCodes, ReasonPhrases } from "http-status-codes";
+
 
 @injectable()
-export class AuthController {
-  constructor(@inject(AuthService) private authService: AuthService) {}
+export class AuthController extends BaseController {
+  constructor(@inject(AuthService) private authService: IAuthService) {
+    super();
+  }
 
   async register(req: Request, res: Response) {
     try {
-      const result = await this.authService.registerUser(req.body);
-      res.status(201).json({ success: true, user: result });
-    } catch (err: any) {
-      res.status(400).json({ success: false, message: err.message });
+      const user = await this.authService.registerUser(req.body);
+      return this.sendSuccess(res, user, ReasonPhrases.CREATED, StatusCodes.CREATED);
+    } catch (error: any) {
+      return this.sendError(res, error, "User registration failed", StatusCodes.BAD_REQUEST);
     }
   }
 
   async login(req: Request, res: Response) {
-    const result = await this.authService.loginUser(req.body);
-    res.json(result);
+    try {
+      const user = await this.authService.loginUser(req.body);
+      return this.sendSuccess(res, user, ReasonPhrases.OK, StatusCodes.OK);
+    } catch (error: any) {
+      return this.sendError(res, error, "Login failed", StatusCodes.UNAUTHORIZED);
+    }
   }
 }

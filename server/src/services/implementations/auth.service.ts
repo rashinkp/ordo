@@ -1,10 +1,10 @@
-// src/services/auth.service.ts
+// src/services/implementations/auth.service.ts
 import { injectable, inject } from "inversify";
 import { UserRepository } from "../../repositories/implementations/user.repository.js";
-
+import type { IAuthService } from "../interfaces/auth.service.interface.js";
 
 @injectable()
-export class AuthService {
+export class AuthService implements IAuthService {
   constructor(@inject(UserRepository) private userRepository: UserRepository) {}
 
   async registerUser(userData: any) {
@@ -15,7 +15,7 @@ export class AuthService {
 
   async loginUser(credentials: any) {
     const user = await this.userRepository.findByEmail(credentials.email);
-    // add password check logic
+    // add password validation logic here later
     return user;
   }
 }

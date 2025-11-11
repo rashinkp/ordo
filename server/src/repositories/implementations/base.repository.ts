@@ -1,7 +1,7 @@
 
 import { Model, Document } from "mongoose";
 import { injectable } from "inversify";
-import type { IRepository } from "../interfaces/IRepository.js";
+import type { IRepository } from "../interfaces/base.repository.interface.js";
 
 @injectable()
 export class BaseRepository<T extends Document> implements IRepository<T> {

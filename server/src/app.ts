@@ -5,6 +5,7 @@ import cookieParser from "cookie-parser";
 import { requestLogger } from "./middlewares/request-logger.middleware.js";
 import routes from "./routes/index.routes.js";
 import { env } from "./config/env.config.js";
+import "reflect-metadata";
 
 const app: Application = express();
 

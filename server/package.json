@@ -24,8 +24,10 @@
     "express": "^5.1.0",
     "express-rate-limit": "^8.2.1",
     "helmet": "^8.1.0",
+    "inversify": "^7.10.4",
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.19.2",
+    "reflect-metadata": "^0.2.2",
     "winston": "^3.18.3"
   },
   "devDependencies": {

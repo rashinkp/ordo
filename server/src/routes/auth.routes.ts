@@ -1,20 +1,12 @@
+// src/routes/auth.routes.ts
 import { Router } from "express";
-// import {
-//   registerUser,
-//   loginUser,
-//   logoutUser,
-//   refreshToken,
-//   getCurrentUser,
-// } from "../controllers/auth.controller.js";
-import { authenticateUser } from "../middlewares/auth.middleware.js";
+import { container } from "../di/container.js";
+import { AuthController } from "../controllers/auth.controller.js";
 
-const router:Router = Router();
+const router : Router = Router();
+const controller = container.get(AuthController);
 
-// router.post("/register", registerUser);
-// router.post("/login", loginUser);
-// router.post("/refresh", refreshToken);
-// router.post("/logout", authenticateUser, logoutUser);
-// router.get("/me", authenticateUser, getCurrentUser);
-
+router.post("/register", (req, res) => controller.register(req, res));
+router.post("/login", (req, res) => controller.login(req, res));
 
 export default router;

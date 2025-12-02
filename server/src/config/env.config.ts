@@ -1,5 +1,6 @@
 import dotenv from "dotenv";
 import type { EnvConfig } from "../types/env.types.js";
+import type { StringValue } from "ms";
 
 dotenv.config();
 
@@ -10,8 +11,8 @@ export const env: EnvConfig = {
   CLIENT_URL: process.env.CLIENT_URL || "",
   ACCESS_TOKEN_SECRET: process.env.ACCESS_TOKEN_SECRET || "default_secret",
   REFRESH_TOKEN_SECRET: process.env.REFRESH_TOKEN_SECRET || "default_secret",
-  ACCESS_TOKEN_EXPIRES_IN: process.env.ACCESS_TOKEN_EXPIRES_IN || "15m",
-  REFRESH_TOKEN_EXPIRES_IN: process.env.REFRESH_TOKEN_EXPIRES_IN || "7d",
+  ACCESS_TOKEN_EXPIRES_IN: (process.env.ACCESS_TOKEN_EXPIRES_IN || "15m") as StringValue,
+  REFRESH_TOKEN_EXPIRES_IN: (process.env.REFRESH_TOKEN_EXPIRES_IN || "7d") as StringValue,
   LOG_LEVEL: process.env.LOG_LEVEL || "info",
 };
 
